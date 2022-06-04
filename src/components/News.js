@@ -1,17 +1,17 @@
 import React, { Component } from "react";
 import NewsItem from "./NewsItem";
 import Spinner from "./Spinner";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
 
 export default class News extends Component {
-  static defaultProptypes={
-    country:"in",
-    category:"sports"
-  }
-  static propTypes={
-    country:PropTypes.string,
-    category:PropTypes.string
-  }
+  static defaultProptypes = {
+    country: "in",
+    category: "sports",
+  };
+  static propTypes = {
+    country: PropTypes.string,
+    category: PropTypes.string,
+  };
   constructor() {
     super();
     this.state = {
@@ -31,13 +31,17 @@ export default class News extends Component {
     this.setState({
       articles: parseData.articles,
       totalPages: Math.ceil(parseData.totalResults / this.state.pageSize),
-      loading:false
+      loading: false,
     });
   }
 
   handlePrivClick = async () => {
     this.setState({ loading: true });
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=3889d23a7ece42d6853601af5d29af62&page=${
+    let url = `https://newsapi.org/v2/top-headlines?country=${
+      this.props.country
+    }&category=${
+      this.props.category
+    }&apiKey=3889d23a7ece42d6853601af5d29af62&page=${
       this.state.page - 1
     }&pageSize=${this.state.pageSize} `;
     let data = await fetch(url);
@@ -52,7 +56,11 @@ export default class News extends Component {
 
   handleNextClick = async () => {
     this.setState({ loading: true });
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=3889d23a7ece42d6853601af5d29af62&page=${
+    let url = `https://newsapi.org/v2/top-headlines?country=${
+      this.props.country
+    }&category=${
+      this.props.category
+    }&apiKey=3889d23a7ece42d6853601af5d29af62&page=${
       this.state.page + 1
     }&pageSize=${this.state.pageSize}`;
     let data = await fetch(url);
@@ -68,26 +76,33 @@ export default class News extends Component {
 
   render() {
     return (
-      <div className="container my-4">
-        <h2 className="text-center" style={{margin:'35px 0px'}}>FreshNews - Top Headlines</h2>
+      <div className="container my-3">
+        <h2 className="text-center" style={{ margin: "35px 0px" }}>
+          FreshNews - Top Headlines
+        </h2>
         {this.state.loading && <Spinner />}
         <div className="row">
-          {this.state.loading?"":this.state.articles.map((elements) => {
-            return (
-              <div className="col md3" key={elements.url}>
-                <NewsItem
-                  title={elements.title ? elements.title.slice(0, 50) : ""}
-                  description={
-                    elements.description
-                      ? elements.description.slice(0, 88)
-                      : ""
-                  }
-                  imageUrl={elements.urlToImage ? elements.urlToImage : ""}
-                  sourceUrl={elements.url ? elements.url : ""}
-                />
-              </div>
-            );
-          })}
+          {this.state.loading
+            ? ""
+            : this.state.articles.map((elements) => {
+                return (
+                  <div className="col-md-4" key={elements.url}>
+                    <NewsItem
+                      title={elements.title ? elements.title.slice(0, 50) : ""}
+                      description={
+                        elements.description
+                          ? elements.description.slice(0, 88)
+                          : ""
+                      }
+                      imageUrl={elements.urlToImage ? elements.urlToImage : ""}
+                      sourceUrl={elements.url ? elements.url : ""}
+                      author={elements.author} 
+                      date={elements.publishedAt}
+                      source={elements.source.name}
+                    />
+                  </div>
+                );
+              })}
         </div>
         <div className="container d-flex justify-content-between">
           <button
