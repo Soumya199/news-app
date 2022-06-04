@@ -10,7 +10,6 @@ export default class App extends Component {
   state={
     progress:0
   }
-  progress=0;
   increaseProgress=(progress)=>{
    this.setState({progress: progress})
   // this.progress=progress
