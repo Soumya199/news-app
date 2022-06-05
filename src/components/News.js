@@ -117,7 +117,7 @@ export default class News extends Component {
   render() {
     return (
       <div className="container my-3">
-        <h2 className="text-center" style={{ margin: "35px 0px" }}>
+        <h2 className="text-center" style={{ margin: "90px 0px" }}>
           FreshNews - Top Headlines
         </h2>
         {this.state.loading?<Spinner/>:""}
