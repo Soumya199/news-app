@@ -126,6 +126,7 @@ export default class News extends Component {
           next={this.fetchMoreData}
           hasMore={this.state.articles.length !== this.state.totalResults}
           loader={<Spinner/>}
+          style={{overflow:"hidden"}}
         >
         <div className="row">
           {this.state.articles.map((elements) => {
